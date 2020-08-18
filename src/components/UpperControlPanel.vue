@@ -1,7 +1,7 @@
 <template>
   <div class="p-grid">
     <div class="upper-bar p-shadow-4 p-d-flex p-jc-between p-justify-between">
-      <a href="#" class="p-d-md-inline-flex">Look I'am a wizard!</a>
+      <a href="#" class="p-d-md-inline-flex">Look! I'm a wizard!</a>
       <ul class="p-jc-end">
         <li><a href="#" class="pi pi-plus" v-on:click="$emit('open-uploader')"></a></li>
       </ul>

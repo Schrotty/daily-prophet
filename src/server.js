@@ -71,7 +71,6 @@ app.post('/upload', function(request, response) {
             })
         } else {
             let media = request.files.media
-
             updateDataWith(media, function () {
                 media.mv('./dist/storage/' + media.name)
             })
@@ -101,7 +100,7 @@ app.put('/activate', function (request, response) {
             })
         } else {
             activateMedia(request.body.id, function () {
-                console.log("Test")
+                return true
             })
         }
     } catch (e) {
@@ -155,10 +154,20 @@ function updateDataWith(item, callback) {
         index.push({
             filename: item.name,
             type: item.mimetype.split('/')[0],
-            selected: false
+            selected: !hasSelected()
         })
 
         fs.writeFile(file, JSON.stringify(index), 'utf8', callback)
+    })
+}
+
+function hasSelected() {
+    return getSelected().length >= 1
+}
+
+function getSelected() {
+    return JSON.parse(loadData()).filter(function (value) {
+        return value.selected === true
     })
 }
 

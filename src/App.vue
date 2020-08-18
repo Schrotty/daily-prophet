@@ -8,11 +8,11 @@
 
     <!-- DIALOGS -->
     <Dialog header="Upload New Video" :visible.sync="display" :modal="true" position="center">
-      <FileUpload name="media" url="./upload" @upload="onUpload" />
+      <FileUpload name="media" :multible="false" url="./upload" uploadLabel="" cancelLabel="" @upload="onUpload" @error="onError"/>
     </Dialog>
 
     <Dialog v-if="tmpFile !== undefined" header="Delete Media" :visible.sync="displayDeleteDiag" :modal="true" position="center">
-      <img v-if="tmpFile.type === 'img'" class="preview-img" :src="'storage/' + tmpFile.filename" :alt="tmpFile.filename">
+      <img v-if="tmpFile.type === 'image'" class="preview-img" :src="'storage/' + tmpFile.filename" :alt="tmpFile.filename">
       <video v-else class="preview-img" :src="'storage/' + tmpFile.filename" :alt="tmpFile.filename" autoplay loop muted></video>
       <template #footer>
         <Button class="p-button-warning" icon="pi pi-times" label="Abort" @click="closeDeleteDialog" />
@@ -43,9 +43,12 @@
       this.mediaService = new MediaService()
     },
     mounted() {
-      this.mediaService.fetchMedia().then(response => (this.items = response.data))
+      this.fetchData()
     },
     methods: {
+      fetchData() {
+        this.mediaService.fetchMedia().then(response => (this.items = response.data))
+      },
       onOpenUploader: function () {
         this.display = true
       },
@@ -55,17 +58,22 @@
       },
       onActivateMedia: function (item) {
         this.mediaService.activateMedia(item)
-        location.reload()
+        this.fetchData()
       },
       onUpload: function () {
-        location.reload()
+        this.fetchData()
+        this.display = false
+      },
+      onError: function (e) {
+        this.$toast.add({severity:'error', summary: e.xhr.status + ' ' + e.xhr.statusText, detail: "Backend not available!", life: 3000});
       },
       closeDeleteDialog() {
         this.displayDeleteDiag = false
       },
       deleteMedia() {
         this.mediaService.deleteMedia(this.tmpFile)
-        location.reload()
+        this.closeDeleteDialog()
+        this.fetchData()
       }
     }
   }
@@ -98,7 +106,12 @@
   }
 
   .p-fileupload-buttonbar {
-    display: inline-flex;
+    width: 100%;
+  }
+
+  .p-fileupload .p-fileupload-buttonbar .p-button  {
+    height: 40px;
+    min-width: 40px;
   }
 
   .p-card:first-of-type {
@@ -117,5 +130,10 @@
   .p-dialog-content img,
   .p-dialog-content video {
     width: 100%;
+  }
+
+  #app > .p-toast-top-center {
+    left: 0;
+    margin-left: 0.4rem;
   }
 </style>
