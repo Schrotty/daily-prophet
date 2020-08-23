@@ -1,7 +1,7 @@
 <template>
   <div id="video-display" v-if="items !== undefined  && items.length > 0">
     <template v-for="item in items" >
-      <Card :key="item.filename">
+      <Card :key="item.id">
         <template slot="content">
           <div class="p-grid">
             <div class="p-col-12">
@@ -9,12 +9,7 @@
               <video v-if="item.type === 'video'" class="preview-img" :src="'storage/' + item.filename" :alt="item.filename" autoplay loop muted></video>
             </div>
 
-            <div class="p-col-6">
-              <Button v-if="item.selected" disabled label="Activated" class="p-button-success" icon="pi pi-check"></Button>
-              <Button v-else label="Activate" class="p-button-help" icon="pi pi-heart" v-on:click="$emit('activate', item)"></Button>
-            </div>
-
-            <div class="p-col-6">
+            <div class="p-col-12">
               <Button v-bind:disabled="item.selected" label="Delete" class="p-button-danger" icon="pi pi-trash" v-on:click="$emit('open-delete', item)"></Button>
             </div>
           </div>

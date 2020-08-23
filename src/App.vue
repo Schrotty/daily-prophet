@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <UpperControlPanel v-on:open-uploader="onOpenUploader" />
-    <VideoDisplay v-bind:items="items" v-on:activate="onActivateMedia" v-on:open-delete="onOpenDeleteDialog" />
+    <VideoDisplay v-bind:items="items" v-on:open-delete="onOpenDeleteDialog" />
 
     <!-- TOAST -->
     <Toast position="top-center" />
 
     <!-- DIALOGS -->
-    <Dialog header="Upload New Video" :visible.sync="display" :modal="true" position="center">
-      <FileUpload name="media" :multible="false" url="./upload" uploadLabel="" cancelLabel="" @upload="onUpload" @error="onError"/>
+    <Dialog header="Upload New Media" :visible.sync="display" :modal="true" position="center">
+      <FileUpload name="file" :multible="false" url="./media" uploadLabel="" cancelLabel="" @upload="onUpload" @error="onError"/>
     </Dialog>
 
     <Dialog v-if="tmpFile !== undefined" header="Delete Media" :visible.sync="displayDeleteDiag" :modal="true" position="center">
@@ -55,10 +55,6 @@
       onOpenDeleteDialog: function (item) {
         this.tmpFile = item
         this.displayDeleteDiag = true
-      },
-      onActivateMedia: function (item) {
-        this.mediaService.activateMedia(item)
-        this.fetchData()
       },
       onUpload: function () {
         this.fetchData()
