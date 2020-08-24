@@ -25,5 +25,5 @@ import "primeicons/primeicons.css"
 import 'primeflex/primeflex.css'
 
 new Vue({
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')

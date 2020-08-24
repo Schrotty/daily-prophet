@@ -18,6 +18,11 @@ def hello_world():
     return app.send_static_file("index.html")
 
 
+@app.route('/gallery/')
+def gallery():
+    return app.send_static_file("gallery.html")
+
+
 @app.route('/media/', methods=['GET', 'POST'])
 @app.route('/media/<identifier>', methods=['DELETE'])
 def media(identifier=None):
