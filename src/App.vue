@@ -8,7 +8,7 @@
 
     <!-- DIALOGS -->
     <Dialog header="Upload New Media" :visible.sync="display" :modal="true" position="center">
-      <FileUpload name="file" :multible="false" url="./media" uploadLabel="" cancelLabel="" @upload="onUpload" @error="onError"/>
+      <FileUpload accept="image/*, video/*" name="file[]" :multible="true" url="media/" uploadLabel="" cancelLabel="" @upload="onUpload" @error="onError"/>
     </Dialog>
 
     <Dialog v-if="tmpFile !== undefined" header="Delete Media" :visible.sync="displayDeleteDiag" :modal="true" position="center">
@@ -67,9 +67,8 @@
         this.displayDeleteDiag = false
       },
       deleteMedia() {
-        this.mediaService.deleteMedia(this.tmpFile)
+        this.mediaService.deleteMedia(this.tmpFile).then(response => (this.items = response.data))
         this.closeDeleteDialog()
-        this.fetchData()
       }
     }
   }

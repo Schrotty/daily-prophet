@@ -16,8 +16,8 @@ def row_fac(cursor, row):
 
 class Prophet:
     def __init__(self):
-        if not os.path.exists('dist/storage'):
-            os.mkdir('dist/storage')
+        if not os.path.exists('./dist/storage'):
+            os.mkdir('./dist/storage')
 
         with sqlite3.connect('media.db') as connection:
             connection.execute('CREATE TABLE IF NOT EXISTS media '
@@ -46,7 +46,7 @@ class Prophet:
             if file is None:
                 return abort(404)
 
-            os.remove("dist/storage/{0}".format(file[0]))
+            os.remove("{0}/dist/storage/{1}".format(os.getcwd(), file[0]))
             connection.execute("DELETE FROM media WHERE id=?", (identifier,))
 
-        return Response("", 200)
+        return self.read_media()

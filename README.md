@@ -1,29 +1,17 @@
-# look-iam-a-wizard
+# DailyProphet
 
 ## Project setup
 ```
-npm install
+$ ./install.sh
 ```
 
-### Compiles and hot-reloads for development
+## Run Project
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Start server
-```
-npm run start
-```
-
-### Lints and fixes files
-```
-npm run lint
+$ ./run.sh
 ```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### License
+MIT
