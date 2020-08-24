@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 UPLOAD_DIR = 'dist/storage'
 EXTENSIONS = {'png', 'jpeg', 'jpg', 'gif', 'mp4'}
 
-app = Flask(__name__, static_folder='dist', static_url_path='/')
+app = Flask(__name__, static_folder='./dist', static_url_path='/')
 app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
 
 prophet = Prophet()
