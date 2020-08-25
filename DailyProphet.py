@@ -7,7 +7,8 @@ from DataManager import Prophet
 from DisplayManager import DisplayManager
 
 UPLOAD_DIR = 'dist/storage'
-EXTENSIONS = {'png', 'jpeg', 'jpg', 'gif', 'mp4'}
+EXTENSIONS = {'png', 'jpeg', 'jpg', 'gif', 'mp4', 'mov'}
+VIDEO_EXTS = {'mp4', 'mov'}
 
 app = Flask(__name__, static_folder='dist', static_url_path='')
 app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
@@ -70,7 +71,7 @@ def allowed_file(filename):
 
 def file_type(filename):
     mime = filename.rsplit('.', 1)[1].lower()
-    if mime in ['mp4']:
+    if mime in VIDEO_EXTS:
         return 'video'
 
     return 'image'

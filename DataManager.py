@@ -47,8 +47,9 @@ class Prophet:
             random = connection.execute(
                 "SELECT id, filename, type, duration FROM media ORDER BY RANDOM() LIMIT 1").fetchone()
 
-        if random['duration'] == 0:
-            random['duration'] = int(os.getenv("PROPHET_IMG_TIMEOUT", 60))
+        if random is not None:
+            if random['duration'] == 0:
+                random['duration'] = int(os.getenv("PROPHET_IMG_TIMEOUT", 60))
 
         return random
 
