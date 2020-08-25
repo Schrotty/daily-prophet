@@ -1,3 +1,3 @@
 FLASK_RUN_PORT=8080
-FLASK_ENV=production
+FLASK_ENV=development
 FLASK_APP=DailyProphet

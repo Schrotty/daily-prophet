@@ -405,3 +405,4 @@ modules.xml
 # End of https://www.toptal.com/developers/gitignore/api/python,webstorm+all,node,web,vuejs,flask
 !/media.db
 /media.db
+!/data/

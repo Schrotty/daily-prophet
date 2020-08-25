@@ -1,16 +1,19 @@
 import os
 
-from DataManager import Prophet
 from flask import request, jsonify, flash, redirect, Flask
 from werkzeug.utils import secure_filename
 
-UPLOAD_DIR = './dist/storage'
+from DataManager import Prophet
+from DisplayManager import DisplayManager
+
+UPLOAD_DIR = 'dist/storage'
 EXTENSIONS = {'png', 'jpeg', 'jpg', 'gif', 'mp4'}
 
 app = Flask(__name__, static_folder='dist', static_url_path='')
 app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
 
 prophet = Prophet()
+display = DisplayManager()
 
 
 @app.route('/')
@@ -18,12 +21,17 @@ def hello_world():
     return app.send_static_file("index.html")
 
 
-@app.route('/gallery/')
+@app.route('/gallery/', methods=['POST', 'GET'])
 def gallery():
+    display.activate()
+    if request.method == 'POST':
+        return 'gallery activated'
+
     return app.send_static_file("gallery.html")
 
 
 @app.route('/media/', methods=['GET', 'POST'])
+@app.route('/media/random/')
 @app.route('/media/<identifier>', methods=['DELETE'])
 def media(identifier=None):
     if request.method == 'DELETE':
@@ -43,6 +51,9 @@ def media(identifier=None):
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 prophet.add_media(filename, file_type(filename))
+
+    if request.path.endswith('random/'):
+        return jsonify(prophet.random())
 
     return jsonify(prophet.read_media())
 

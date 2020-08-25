@@ -23,20 +23,21 @@
 </template>
 
 <script>
-  import UpperControlPanel from "@/components/UpperControlPanel";
-  import VideoDisplay from "@/components/VideoDisplay";
-  import MediaService from "@/services/MediaService";
-  export default {
-    name: 'App',
-    components: {VideoDisplay, UpperControlPanel},
-    data() {
-      return {
-        mediaService: undefined,
-        items: undefined,
-        display: false,
-        displayDeleteDiag: false,
-        tmpFile: undefined,
-        tmpFileType: undefined
+import UpperControlPanel from "@/components/UpperControlPanel";
+import VideoDisplay from "@/components/VideoDisplay";
+import MediaService from "@/services/MediaService";
+
+export default {
+  name: 'App',
+  components: {VideoDisplay, UpperControlPanel},
+  data() {
+    return {
+      mediaService: undefined,
+      items: undefined,
+      display: false,
+      displayDeleteDiag: false,
+      tmpFile: undefined,
+      tmpFileType: undefined
       }
     },
     created() {
