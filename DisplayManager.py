@@ -1,7 +1,7 @@
 import os
 from threading import Timer
 
-from rpi_backlight import Backlight
+# from rpi_backlight import Backlight
 
 
 class DisplayManager:
@@ -11,13 +11,13 @@ class DisplayManager:
         self.timeout = os.getenv('PROPHET_TIMEOUT', 300)
         self.activated = False
 
-        if self.env != 'development':
-            self.backlight = Backlight()
+        # if self.env != 'development':
+        #    self.backlight = Backlight()
 
     def activate(self):
         self.activated = True
-        if self.env != 'development':
-            self.backlight.power = True
+        # if self.env != 'development':
+        #    self.backlight.power = True
 
         if self.timer is not None:
             self.timer.cancel()
@@ -34,7 +34,7 @@ class DisplayManager:
         self.activated = False
         self.timer = None
 
-        if self.env != 'development':
-            self.backlight.power = False
+        # if self.env != 'development':
+        #    self.backlight.power = False
 
         print("Timer executed! Display disabled!")
