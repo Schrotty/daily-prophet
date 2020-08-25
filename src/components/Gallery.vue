@@ -43,7 +43,7 @@ export default {
         }
 
         this.timer = setInterval(this.fetchRandom, (this.duration * 1000))
-      }).catch(err => {
+      }).catch(() => {
         clearInterval(this.timer)
         this.timer = setInterval(this.fetchRandom, (30 * 1000))
       })
