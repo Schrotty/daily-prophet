@@ -1,8 +1,8 @@
 <template>
   <div id="app" v-if="image !== null && image !== undefined">
-    <div :style="{ backgroundImage: 'url(\'../storage/' + image.filename + '\')' }" class="bg"
+    <div :style="{ backgroundImage: 'url(\'storage/' + image.filename + '\')' }" class="bg"
          v-if="image.type === 'image'"></div>
-    <video :alt="image.filename" :src="'../storage/' + image.filename" autoplay loop muted ref="player" v-else></video>
+    <video :alt="image.filename" :src="'storage/' + image.filename" autoplay loop muted ref="player" v-else></video>
   </div>
 </template>
 
@@ -52,15 +52,23 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  html, body {
+<style scoped lang="scss">
+  #app {
+    position: absolute;
+    background-color: black;
+    width: 100%;
     height: 100%;
   }
 
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: black;
+  video {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    min-height: 50%;
+    min-width: 50%;
   }
 
   .p-galleria-item {

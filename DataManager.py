@@ -17,11 +17,8 @@ def row_fac(cursor, row):
 class Prophet:
     def __init__(self):
         load_dotenv(dotenv_path='.prophetenv')
-        self.database = './data/data.db'
+        self.database = 'dist/storage/_index.db'
         self.last_rand = -1
-
-        if not os.path.exists('data'):
-            os.mkdir('data')
 
         if not os.path.exists('dist/storage'):
             os.mkdir('dist/storage')
@@ -29,7 +26,8 @@ class Prophet:
         with sqlite3.connect(self.database) as connection:
             connection.execute('CREATE TABLE IF NOT EXISTS media '
                                '(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, '
-                               'filename TEXT NOT NULL, type TEXT NOT NULL, duration INTEGER)')
+                               'filename TEXT NOT NULL,'
+                               'type TEXT NOT NULL, duration INTEGER)')
 
         self.media = {}
         self.read_media()

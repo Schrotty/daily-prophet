@@ -10,7 +10,7 @@ UPLOAD_DIR = 'dist/storage'
 EXTENSIONS = {'png', 'jpeg', 'jpg', 'gif', 'mp4', 'mov'}
 VIDEO_EXTS = {'mp4', 'mov'}
 
-app = Flask(__name__, static_folder='dist', static_url_path='')
+app = Flask(__name__, static_folder="dist/", static_url_path="/")
 app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
 
 prophet = Prophet()
@@ -18,17 +18,12 @@ display = DisplayManager()
 
 
 @app.route('/')
+@app.route('/gallery', methods=['GET', 'POST'])
 def hello_world():
-    return app.send_static_file("index.html")
+    if request.path.endswith('/gallery'):
+        display.activate()
 
-
-@app.route('/gallery/', methods=['POST', 'GET'])
-def gallery():
-    display.activate()
-    if request.method == 'POST':
-        return 'gallery activated'
-
-    return app.send_static_file("gallery.html")
+    return app.send_static_file("public/index.html")
 
 
 @app.route('/media/', methods=['GET', 'POST'])

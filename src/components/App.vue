@@ -83,8 +83,9 @@ export default {
 
   body {
     font-family: 'Karla', sans-serif;
-    background-color: $background-color;
-    margin-top: 0;
+    background-color: $background-color !important;
+    margin: 0;
+    padding: 0;
   }
 
   a {
@@ -93,14 +94,6 @@ export default {
     user-select: none;
     cursor: pointer;
   }
-
-  #app {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-    margin-top: 0;
-  }
-
   .p-fileupload-buttonbar {
     width: 100%;
   }
@@ -131,5 +124,15 @@ export default {
   #app > .p-toast-top-center {
     left: 0;
     margin-left: 0.4rem;
+  }
+</style>
+
+<style scoped>
+  #app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    margin-top: 0;
+    padding: 8px;
   }
 </style>

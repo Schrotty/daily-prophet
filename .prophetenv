@@ -1,4 +1,4 @@
 PROPHET_IMG_TIMEOUT=60
 PROPHET_TIMEOUT=300
 PROPHET_ENV=development
-FFMPEG_BINARY=/usr/bin/ffmpeg
+# FFMPEG_BINARY=/usr/bin/ffmpeg

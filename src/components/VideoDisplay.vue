@@ -6,7 +6,9 @@
           <div class="p-grid">
             <div class="p-col-12">
               <img v-if="item.type === 'image'" class="preview-img" :src="'storage/' + item.filename" :alt="item.filename">
-              <video v-if="item.type === 'video'" class="preview-img" :src="'storage/' + item.filename" :alt="item.filename" autoplay loop muted></video>
+              <video v-if="item.type === 'video'" class="preview-img" :src="'storage/' + item.filename" :alt="item.filename" autoplay loop muted>
+                Your browser doesn't support embedded videos!
+              </video>
             </div>
 
             <div class="p-col-12">

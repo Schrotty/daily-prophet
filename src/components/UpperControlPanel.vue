@@ -4,6 +4,7 @@
       <a href="#" class="p-d-md-inline-flex">Look! I'm a wizard!</a>
       <ul class="p-jc-end">
         <li><a href="#" class="pi pi-plus" v-on:click="$emit('open-uploader')"></a></li>
+        <li><router-link href="#" class="pi pi-images" :to="'/gallery'"></router-link></li>
       </ul>
     </div>
   </div>
