@@ -4,10 +4,10 @@
 import RPi.GPIO as GPIO
 import time
 import datetime
+import requests
 
 # BCM GPIO-Referenen verwenden (anstelle der Pin-Nummern)
 # und GPIO-Eingang definieren
-import requests
 
 GPIO.setmode(GPIO.BCM)
 GPIO_PIR = 4
