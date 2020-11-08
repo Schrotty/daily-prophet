@@ -28,10 +28,13 @@ def hello_world():
 
 @app.route('/media/', methods=['GET', 'POST'])
 @app.route('/media/random/')
-@app.route('/media/<identifier>', methods=['DELETE'])
+@app.route('/media/<identifier>', methods=['DELETE', 'PUT'])
 def media(identifier=None):
     if request.method == 'DELETE':
         return jsonify(prophet.delete_media(identifier))
+
+    if request.method == 'PUT':
+        return jsonify(prophet.update_media(identifier))
 
     if request.method == 'POST':
         if 'file[]' not in request.files:

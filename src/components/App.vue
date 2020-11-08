@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <UpperControlPanel v-on:open-uploader="onOpenUploader" />
-    <VideoDisplay v-bind:items="items" v-on:open-delete="onOpenDeleteDialog" />
+    <VideoDisplay v-bind:items="items" v-on:open-delete="onOpenDeleteDialog" v-on:update-status="updateStatus" />
 
     <!-- TOAST -->
     <Toast position="top-center" />
 
     <!-- DIALOGS -->
-    <Dialog header="Upload New Media" :visible.sync="display" :modal="true" position="center">
+    <Dialog header="Upload New" :visible.sync="display" :modal="true" position="center">
       <FileUpload accept="image/*, video/*" name="file[]" :multible="true" url="media/" uploadLabel="" cancelLabel="" @upload="onUpload" @error="onError"/>
     </Dialog>
 
@@ -70,6 +70,9 @@ export default {
       deleteMedia() {
         this.mediaService.deleteMedia(this.tmpFile).then(response => (this.items = response.data))
         this.closeDeleteDialog()
+      },
+      updateStatus: function (item) {
+        this.mediaService.updateMedia(item).then(response => (this.items = response.data))
       }
     }
   }

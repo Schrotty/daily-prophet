@@ -27,7 +27,7 @@ class Prophet:
             connection.execute('CREATE TABLE IF NOT EXISTS media '
                                '(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, '
                                'filename TEXT NOT NULL,'
-                               'type TEXT NOT NULL, duration INTEGER)')
+                               'type TEXT NOT NULL, duration INTEGER, active BOOLEAN)')
 
         self.media = {}
         self.read_media()
@@ -35,7 +35,7 @@ class Prophet:
     def read_media(self):
         with sqlite3.connect(self.database) as connection:
             connection.row_factory = row_fac
-            self.media = connection.execute("SELECT id, filename, type FROM media").fetchall()
+            self.media = connection.execute("SELECT id, filename, type, active FROM media").fetchall()
 
         return self.media
 
@@ -43,7 +43,7 @@ class Prophet:
         with sqlite3.connect(self.database) as connection:
             connection.row_factory = row_fac
             random = connection.execute(
-                "SELECT id, filename, type, duration FROM media ORDER BY RANDOM() LIMIT 1").fetchone()
+                "SELECT id, filename, type, duration, active FROM media WHERE active = TRUE ORDER BY RANDOM() LIMIT 1").fetchone()
 
         if random is not None:
             if random['duration'] == 0:
@@ -57,7 +57,8 @@ class Prophet:
             length = VideoFileClip("{0}/dist/storage/{1}".format(os.getcwd(), f)).duration
 
         with sqlite3.connect(self.database) as connection:
-            connection.execute("INSERT INTO media (filename, type, duration) VALUES (?, ?, ?)", (f, t, length))
+            connection.execute("INSERT INTO media (filename, type, duration, active) VALUES (?, ?, ?, ?)",
+                               (f, t, length, True))
 
         return self.media
 
@@ -73,5 +74,15 @@ class Prophet:
                 pass
 
             connection.execute("DELETE FROM media WHERE id=?", (identifier,))
+
+        return self.read_media()
+
+    def update_media(self, identifier):
+        with sqlite3.connect(self.database) as connection:
+            status = connection.execute("SELECT active FROM media WHERE id={0}".format(identifier)).fetchone()
+            if status is None:
+                return abort(404)
+
+            connection.execute("UPDATE media SET active=? WHERE id=?", (not bool(status[0]), identifier,))
 
         return self.read_media()

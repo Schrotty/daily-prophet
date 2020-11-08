@@ -11,8 +11,13 @@
               </video>
             </div>
 
-            <div class="p-col-12">
+            <div class="p-col-6">
               <Button v-bind:disabled="item.selected" label="Delete" class="p-button-danger" icon="pi pi-trash" v-on:click="$emit('open-delete', item)"></Button>
+            </div>
+
+            <div class="p-col-6">
+              <Button v-bind:disabled="item.selected" label="Deactivate" v-if="item.active === 1" class="p-button-danger" icon="pi pi-power-off" v-on:click="$emit('update-status', item)"></Button>
+              <Button v-bind:disabled="item.selected" label="Activate" v-else class="p-button-success" icon="pi pi-power-off" v-on:click="$emit('update-status', item)"></Button>
             </div>
           </div>
         </template>
